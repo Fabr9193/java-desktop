@@ -2,33 +2,47 @@ package rss;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import sun.rmi.runtime.Log;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class LoginController {
+@FXML
+private TextField userNameText;
+@FXML
+private PasswordField passwordText;
 
-    @FXML
-    private Image rssImage;
-    @FXML
-    private Label userNameTitle;
-    @FXML
-    private TextArea userNameText;
-
-    @FXML
-    private TextArea passwordText;
-
-    @FXML
-    private Button authButton;
-
-
-    public void initialize()
+public void login(ActionEvent actionEvent) throws IOException {
+    int result = sendLogin(userNameText.getText(), passwordText.getText());
+    if (result == 0)
     {
-    }
+        // go to home page
+        Stage homeStage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        // Path to the FXML File
+        String fxmlDocPath = "src/rss/homeView.fxml";
+        FileInputStream fxmlStream = new FileInputStream(fxmlDocPath);
+        AnchorPane root = loader.load(fxmlStream);
 
-    public void handleButtonAction(ActionEvent actionEvent) {
-        System.out.print(actionEvent.toString() + "\n");
+        Scene scene = new Scene(root);
+        homeStage.setScene(scene);
+        homeStage.show();
     }
+    else {
+        userNameText.clear();
+        passwordText.clear();
+    }
+}
+
+private int sendLogin (String username, String password)
+{
+
+    return 0;
+}
+
 }
