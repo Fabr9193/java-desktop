@@ -39,8 +39,9 @@ public void login(ActionEvent actionEvent) throws IOException {
     }
 }
 
-private int sendLogin (String username, String password)
-{
+private int sendLogin (String username, String password) throws IOException {
+
+    ConnectionHelper.setUpConnection(username, password);
 
     return 0;
 }
